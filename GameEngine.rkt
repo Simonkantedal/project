@@ -12,7 +12,23 @@
 
     (define angle 0)
     (define velocity 2)
-    (define direction (cons 1 0))
+    (define direction '(1 0))
+
+        (define/override (on-char ke)
+      (case (send ke get-key-code)
+        [(down)
+           (begin
+             (set! direction '(0 -1)))]
+        [(up)
+           (begin
+             (set! direction '(0 1)))]
+        [(left)
+           (begin
+             (set! direction '(-1 0)))]
+        [(right)
+           (begin
+             (set! direction '(1 0)))]
+        [else (void)]))
 
     (define/override (on-event event)
       (case (send event get-event-type)
@@ -34,29 +50,17 @@
 
 (define refresh-tick 
   (lambda ()
-    (refresh-tickk 10 (list '(300 . 300) 
-                            '(295 . 300)
-                            '(290 . 300) ;; starting snake
-                            '(285 . 300) ;; coordinates...
-                            '(280 . 300) 
-                            '(275 . 300)
-                            '(270 . 300))
+    (refresh-tickk 10 '(300 300)
                   (cons (* 20 (random 30)) (* 20 (random 40)))
                   0)))
 
 (define draw-snake
   (lambda (ls)
-    (if (or (null?  (cdr ls)) (void? ls))
-        '()
-
-        (let* ((location (car ls))
-               (x (car location))
-               (y (if (list? (cdr location))
-                      (car (cdr location))
-                      (cdr location))))
+        (let* ((location ls)
+               (x (car ls))
+               (y (cadr ls)))
           (begin
-            (send dc draw-rectangle x y  6 6)
-            (draw-snake (cdr ls)))))))
+            (send dc draw-rectangle x y  6 6)))))
 
 (define refresh-tickk 
   (lambda (num snake food score)
@@ -69,7 +73,7 @@
         (draw-snake snake)
         (send dc set-brush "yellow" 'solid) 
         (send dc draw-rectangle (car food) (cdr food)  20 20)
-        (refresh-tickk 0 snake
+        (refresh-tickk 0 '((car snake) (cadr snake))
                              (cons 20 20)
                              (+ 1 score)))))
 
