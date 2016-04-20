@@ -11,8 +11,9 @@
         (display "repaint job\n")))
 
     (define angle 0)
-    (define velocity 2)
-    (define direction (cons 1 0))
+    (define velocity 3)
+    (define steering-radius 0.2)
+    (define direction (cons velocity 0))
 
     (define/public (get-direction) direction)
 
@@ -27,17 +28,17 @@
              (void))]
         [(left)
            (begin
-             (set! angle (- angle 0.1))
+             (set! angle (- angle steering-radius))
              (writeln angle)
-             (let ((x (cos angle))
-                   (y (sin angle)))
+             (let ((x (* velocity (cos angle)))
+                   (y (* velocity (sin angle))))
                (set! direction (cons x y))))]
         [(right)
            (begin
-             (set! angle (+ angle 0.1))
+             (set! angle (+ angle steering-radius))
              (writeln angle)
-             (let ((x (cos angle))
-                   (y (sin angle)))
+             (let ((x (* velocity (cos angle)))
+                   (y (* velocity (sin angle))))
                (set! direction (cons x y))))]
         [else (void)]))
 
@@ -77,10 +78,10 @@
 (define refresh-tickk 
   (lambda (num snake food score)
       (begin
-        (sleep 0.0005)
+        (sleep 0.02)
         (send dc set-brush "black" 'solid)
         (send dc set-pen "black" 0 'solid)
-        (send dc draw-rectangle 0 0 800 1000)
+        (send dc draw-rectangle 0 0 650 800)
         (send dc set-brush "blue" 'solid)        
         (draw-snake snake)
         ;(writeln (cdr (send game-canvas get-direction)))
@@ -143,7 +144,7 @@
   (lambda (lst)
     (reverse (cdr (reverse lst)))))
 
-(define game-frame (new frame% (label "Garde la courbe") (width 800) (height 1000)))
+(define game-frame (new frame% (label "Garde la courbe") (width 640) (height 800)))
 (define game-canvas (new game-canvas% (parent game-frame)))
 
 (define dc (send game-canvas get-dc))
