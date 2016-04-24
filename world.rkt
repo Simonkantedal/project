@@ -16,7 +16,7 @@
         (display "repaint job\n")))
     
     (define angle 0)
-    (define velocity 10)
+    (define velocity 5)
     (define steering-radius 0.2)
     (define direction (cons velocity 0))
     
