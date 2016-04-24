@@ -16,7 +16,7 @@
         (display "repaint job\n")))
     
     (define angle 0)
-    (define velocity 2)
+    (define velocity 10)
     (define steering-radius 0.2)
     (define direction (cons velocity 0))
     
@@ -34,14 +34,12 @@
         [(left)
          (begin
            (set! angle (- angle steering-radius))
-           (writeln angle)
            (let ((x (* velocity (cos angle)))
                  (y (* velocity (sin angle))))
              (set! direction (cons x y))))]
         [(right)
          (begin
            (set! angle (+ angle steering-radius))
-           (writeln angle)
            (let ((x (* velocity (cos angle)))
                  (y (* velocity (sin angle))))
              (set! direction (cons x y))))]
