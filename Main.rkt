@@ -1,4 +1,4 @@
-#lang racket/gui
+'#lang racket/gui
 (require racket/math)
 (require "world.rkt")
 (provide start-screen%)
