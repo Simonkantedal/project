@@ -1,8 +1,8 @@
 #lang racket/gui
-(require racket/math)
-(require "PlayerClass.rkt")
+
+;(require "PlayerClass.rkt")
+(provide *player1*)
 
 (define *player1*
-  (new Player%
-       [right 'right]
-       [left 'left]))
+  (new player%
+       [name 'simon]))

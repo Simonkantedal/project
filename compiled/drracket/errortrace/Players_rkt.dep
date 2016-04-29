@@ -1,0 +1,1 @@
+("6.3" ("aff8faa98de951831f0f45315be7ee2a37b19dcf" . "99358c0a8b62e9c50d700230875a2adfaa0e443c") #"/Users/simonkantedal/Documents/project/PlayerClass.rkt" (collects #"errortrace" #"errortrace-key.rkt") (collects #"racket" #"gui" #"lang" #"reader.rkt") (collects #"racket" #"gui.rkt") (collects #"racket" #"math.rkt") (collects #"racket" #"runtime-config.rkt"))
