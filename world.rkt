@@ -4,40 +4,67 @@
 (provide game-canvas%)
 (provide game-frame)
 (provide game-canvas)
-(require "PlayerClass.rkt")
+(provide dc)
 
 
 
 (define game-canvas%
   (class canvas%
     (inherit get-width get-height refresh)
+    (field
+     [key-events (make-hash)])
     
     (define/override (on-paint)
       (begin
         (display "repaint job\n")))
     
-    ;(define angle 0)
-    ;(define velocity 4)
-    ;(define steering-radius 0.2)
-    ;(define direction (cons velocity 0))
+    (define/public (get-key-events) key-events)
     
-    (define/public (get-direction) (send *player1* get-direction))
+    (define/public init
+      (lambda ()
+        (begin
+          (hash-set! key-events "l1" #f)
+          (hash-set! key-events "r1" #f)
+          (hash-set! key-events "l2" #f)
+          (hash-set! key-events "r2" #f)
+          )))
+    
+    (define/public end-game
+      (lambda ()
+        (begin
+          (send dc set-brush "red" 'solid)
+          (send dc draw-rectangle 0 0 650 800)
+          (printf "Game over")
+          )))
+    
     
     (define/override (on-char ke)
-      (case (send ke get-key-code)
-        [(left)
-         (send *player1* turn-left)]
-        [(right)
-         (send *player1* turn-right)]
-        [(shift)
-         (send *player2* turn-left)]
-        [(control)
-         (send *player2* turn-right)]
-        [else (void)]))
+      (begin
+        (writeln (send ke get-key-code))
+        (case (send ke get-key-code)
+          [(left)
+           (hash-set! key-events "l1" #t)]
+          [(right)
+           (hash-set! key-events "r1" #t)]
+          [(#\q)
+           (hash-set! key-events "l2" #t)]
+          [(#\w)
+           (hash-set! key-events "r2" #t)]
+          [else (void)])
+        (case (send ke get-key-release-code)
+          [(left)
+           (hash-set! key-events "l1" #f)]
+          [(right)
+           (hash-set! key-events "r1" #f)]
+          [(#\q)
+           (hash-set! key-events "l2" #f)]
+          [(#\w)
+           (hash-set! key-events "r2" #f)]
+          [else (void)])))
     
     (define/override (on-event event)
       (case (send event get-event-type)
-        [(right-down) ;enter leave
+        [(right-down)
          (let (
                (event-name (send event get-event-type))
                (event-x (send event get-x))
@@ -53,8 +80,12 @@
     
     (super-new)))
 
+
+
 (define game-frame (new frame% (label "Garde la courbe") (width 600) (height 800)))
 (define game-canvas (new game-canvas% (parent game-frame)))
+(send game-canvas init)
+(define dc (send game-canvas get-dc))
 
 (define game-bitmap (make-object bitmap% 100 100))
 ; Dimensionerna sätts till argumenten, här 100 x 100!
