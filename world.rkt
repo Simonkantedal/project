@@ -19,6 +19,8 @@
         (display "repaint job\n")))
     
     (define/public (get-key-events) key-events)
+
+
     
     (define/public init
       (lambda ()
@@ -27,6 +29,8 @@
           (hash-set! key-events "r1" #f)
           (hash-set! key-events "l2" #f)
           (hash-set! key-events "r2" #f)
+          (hash-set! key-events "l3" #f)
+          (hash-set! key-events "r3" #f)
           )))
     
     (define/public end-game
@@ -40,7 +44,6 @@
     
     (define/override (on-char ke)
       (begin
-        (writeln (send ke get-key-code))
         (case (send ke get-key-code)
           [(left)
            (hash-set! key-events "l1" #t)]
@@ -50,6 +53,10 @@
            (hash-set! key-events "l2" #t)]
           [(#\w)
            (hash-set! key-events "r2" #t)]
+          [(#\v)
+           (hash-set! key-events "l3" #t)]
+          [(#\b)
+           (hash-set! key-events "r3" #t)]
           [else (void)])
         (case (send ke get-key-release-code)
           [(left)
@@ -60,6 +67,10 @@
            (hash-set! key-events "l2" #f)]
           [(#\w)
            (hash-set! key-events "r2" #f)]
+          [(#\v)
+           (hash-set! key-events "l3" #f)]
+          [(#\b)
+           (hash-set! key-events "r3" #f)]
           [else (void)])))
     
     (define/override (on-event event)
