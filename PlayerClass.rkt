@@ -8,15 +8,15 @@
     (init-field name
                 snake
                 player-id
-                [show #f])
+                [show #f]
+                [alive #t])
     (field 
      [x (car (car snake))]
      [y (cdr (car snake))]
      [velocity 2]
      [angle 0]
      [direction (cons velocity 0)]
-     [steering-radius 0.2]
-     [alive #t])
+     [steering-radius 0.2])
     
     (define/public (get-snake) snake)
     (define/public (get-body) (cdr snake))
