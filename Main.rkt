@@ -6,7 +6,7 @@
 
 (define startwindow
   (new frame%
-       [label "startscreen Garde la courbe"]
+       [label "Startscreen Garde La Courbe"]
        [width 650]
        [height 800]))
 
@@ -29,24 +29,25 @@
                    [parent startwindow]
                    [alignment '(right center)]))
 (define subpanel (new group-box-panel%
-                      [label "Antal Spelare"]
+                      [label " "]
                       [parent panel]
                       [alignment '(left center)]))
 
 (define infoframe (new frame%
-                       [label "info"]
+                       [label "Help"]
                        [width 500]
                        [height 200]))
 (define (wind a b)
 (send infoframe show #t))
 (new button%
-     [label "info"]
+     [label "Help"]
      [parent panel]
      [callback wind])
 
 (new button%
      [label "hej"]
-     [parent panel])
+     [parent panel]
+     [callback wind)
 
 (define (buttproc butt on)
  (send game-frame show #t)
@@ -62,18 +63,18 @@
 
 
 (define one-playersteering (new message% [label "You control the first snake with right-key and left-key, the second snake with Q and W, and the third snake with V and B          "] [parent infoframe]))
-(define one-player (new message% [label "For one Player "] [parent subpanel]))
+(define one-player (new message% [label "Press to play with one Snake "] [parent subpanel]))
 (new button%
-     [label "One Player"]
+     [label "One Snake"]
      [parent subpanel])
-(define two-player (new message% [label "For two Players "] [parent subpanel]))
+(define two-player (new message% [label "Press to play with two Snakes "] [parent subpanel]))
 
 (new button%
-     [label "Two Players"]
+     [label "Two Snakes"]
      [parent subpanel])
-(define three-player (new message% [label "For three Players "] [parent subpanel]))
+(define three-player (new message% [label "Press to play with three Snakes "] [parent subpanel]))
 (new button%
-     [label "Three Players"]
+     [label "Three Snakes"]
      [parent subpanel])
 
 (define scoreboard (new message% [label "Score: "] [parent game-frame]))
