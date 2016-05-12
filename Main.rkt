@@ -54,7 +54,21 @@
   (send startwindow show #f)
   (send infoframe show #f)
   (start)
-(send game-canvas focus)) 
+(send game-canvas focus))
+
+(define (one a b)
+  (send (car snake-list) include))
+
+(define (two a b)
+  (send (car snake-list) include)
+  (send (cadr snake-list) include))
+
+(define (three a b)
+  (send (car snake-list) include)
+  (send (cadr snake-list) include)
+  (send (caddr snake-list) include))
+        
+
 (new button%
      [label "start"]
      [parent startwindow]
@@ -65,16 +79,19 @@
 (define one-player (new message% [label "For one Player "] [parent subpanel]))
 (new button%
      [label "One Player"]
-     [parent subpanel])
+     [parent subpanel]
+     [callback one])
 (define two-player (new message% [label "For two Players "] [parent subpanel]))
 
 (new button%
      [label "Two Players"]
-     [parent subpanel])
+     [parent subpanel]
+     [callback two])
 (define three-player (new message% [label "For three Players "] [parent subpanel]))
 (new button%
      [label "Three Players"]
-     [parent subpanel])
+     [parent subpanel]
+     [callback three])
 
 (define scoreboard (new message% [label "Score: "] [parent game-frame]))
 

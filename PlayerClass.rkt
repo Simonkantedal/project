@@ -7,7 +7,8 @@
   (class object%
     (init-field name
                 snake
-                player-id)
+                player-id
+                [show #f])
     (field 
      [x (car (car snake))]
      [y (cdr (car snake))]
@@ -25,6 +26,10 @@
     (define/public (get-name) name)
     (define/public (get-direction) direction)
     (define/public (is-alive?) alive)
+    (define/public (show?) show)
+
+    (define/public (include)
+      (set! show #t))
 
     (define/public (kill)
       (set! alive #f))
