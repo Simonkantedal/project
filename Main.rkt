@@ -55,7 +55,21 @@
   (send startwindow show #f)
   (send infoframe show #f)
   (start)
-(send game-canvas focus)) 
+(send game-canvas focus))
+
+(define (one a b)
+  (send (car snake-list) include))
+
+(define (two a b)
+  (send (car snake-list) include)
+  (send (cadr snake-list) include))
+
+(define (three a b)
+  (send (car snake-list) include)
+  (send (cadr snake-list) include)
+  (send (caddr snake-list) include))
+        
+
 (new button%
      [label "start"]
      [parent startwindow]
@@ -65,6 +79,7 @@
 (define one-playersteering (new message% [label "You control the first snake with right-key and left-key, the second snake with Q and W, and the third snake with V and B          "] [parent infoframe]))
 (define one-player (new message% [label "Press to play with one Snake "] [parent subpanel]))
 (new button%
+<<<<<<< HEAD
      [label "One Snake"]
      [parent subpanel])
 (define two-player (new message% [label "Press to play with two Snakes "] [parent subpanel]))
@@ -76,6 +91,22 @@
 (new button%
      [label "Three Snakes"]
      [parent subpanel])
+=======
+     [label "One Player"]
+     [parent subpanel]
+     [callback one])
+(define two-player (new message% [label "For two Players "] [parent subpanel]))
+
+(new button%
+     [label "Two Players"]
+     [parent subpanel]
+     [callback two])
+(define three-player (new message% [label "For three Players "] [parent subpanel]))
+(new button%
+     [label "Three Players"]
+     [parent subpanel]
+     [callback three])
+>>>>>>> origin/master
 
 (define scoreboard (new message% [label "Score: "] [parent game-frame]))
 
