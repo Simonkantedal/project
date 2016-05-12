@@ -93,8 +93,22 @@
 
 
 
-(define game-frame (new frame% (label "Garde la courbe") (width 650) (height 800)))
+(define game-frame (new frame% (label "Garde la courbe") (width 600) (height 800)))
 (define game-canvas (new game-canvas% (parent game-frame)))
 (send game-canvas init)
-(send game-canvas show #f)
 (define dc (send game-canvas get-dc))
+
+(define game-bitmap (make-object bitmap% 100 100))
+; Dimensionerna sätts till argumenten, här 100 x 100!
+; Hämta DC för bitmapen så att vi kan måla precis som på canvasen!
+(define bitmap-dc (new bitmap-dc% [bitmap game-bitmap]))
+; Ritar ut en bitmap med någon dc, t.ex. på en canvas!
+(send bitmap-dc draw-bitmap game-bitmap
+      0
+      600)
+
+(new button%
+     [label "knapp"]
+     [parent game-frame])
+(define (button-rpoc button event)
+  (send button set-label "klick fungerade"))

@@ -1,0 +1,1 @@
+("6.3" ("c2cb31425507c4046da044545480be04b0c6d710" . "0c946a7c1a89e63d53d11707eba53bf3e1f90fd9") #"C:\\Users\\Jakob\\Desktop\\project\\world.rkt" (collects #"racket" #"gui" #"lang" #"reader.rkt") (collects #"racket" #"gui.rkt") (collects #"racket" #"math.rkt") (collects #"racket" #"runtime-config.rkt"))
