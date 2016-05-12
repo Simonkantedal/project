@@ -24,36 +24,57 @@
 (send startwindow show #t)
 
 
-(define panel (new panel%	 
+(define panel (new group-box-panel%
+                   [label "Meny"]
                    [parent startwindow]
-                   [style '(border)]
                    [alignment '(right center)]))
-(define panel1 (new panel%
-                    [parent startwindow]
-                    [style '(border)]
-                    [alignment '(left center)]))
+(define subpanel (new group-box-panel%
+                      [label "Antal Spelare"]
+                      [parent panel]
+                      [alignment '(left center)]))
+
+(define infoframe (new frame%
+                       [label "info"]
+                       [width 500]
+                       [height 200]))
+(define (wind a b)
+(send infoframe show #t))
+(new button%
+     [label "info"]
+     [parent panel]
+     [callback wind])
 
 (new button%
-     [label "pause"]
-     [parent game-frame])
+     [label "hej"]
+     [parent panel])
 
 (define (buttproc butt on)
  (send game-frame show #t)
   (send game-canvas show #t)
   (send startwindow show #f)
-  (start)) 
+  (send infoframe show #f)
+  (start)
+(send game-canvas focus)) 
 (new button%
      [label "start"]
      [parent startwindow]
      [callback buttproc])
 
-(define one-player (new message% [label "For one Player"] [parent panel]))
+
+(define one-playersteering (new message% [label "You control the first snake with right-key and left-key, the second snake with Q and W, and the third snake with V and B          "] [parent infoframe]))
+(define one-player (new message% [label "For one Player "] [parent subpanel]))
 (new button%
      [label "One Player"]
-     [parent panel])
+     [parent subpanel])
+(define two-player (new message% [label "For two Players "] [parent subpanel]))
+
 (new button%
      [label "Two Players"]
-     [parent panel1])
+     [parent subpanel])
+(define three-player (new message% [label "For three Players "] [parent subpanel]))
+(new button%
+     [label "Three Players"]
+     [parent subpanel])
 
 (define scoreboard (new message% [label "Score: "] [parent game-frame]))
 
