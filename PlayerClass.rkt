@@ -2,6 +2,20 @@
 
 (require "world.rkt")
 (provide player%)
+(provide power-up%)
+
+(define power-up%
+  (class object%
+    [init-field name
+                [x (random 650)]
+                [y (random 800)]]
+
+    (define/public (get-x)
+      x)
+    (define/public (get-y)
+      y)
+
+    (super-new)))
 
 (define player%
   (class object%
@@ -27,6 +41,12 @@
     (define/public (get-direction) direction)
     (define/public (is-alive?) alive)
     (define/public (show?) show)
+    (define/public (get-velocity) velocity)
+
+    (define/public (higher-speed)
+      (set! velocity (+ velocity 1)))
+    (define/public (lower-speed)
+      (set velocity (+ velocity 1)))
 
     (define/public (include)
       (set! show #t))
@@ -36,7 +56,8 @@
     
     (define/public (normalize time)
       (when (equal? (remainder time 100) 0)
-        (set! velocity 5)))
+        (set! velocity 2)
+        (set! steering-radius 0.2)))
     
     (define (turn-left)
       (begin
