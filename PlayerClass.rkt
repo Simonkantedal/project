@@ -9,7 +9,8 @@
     [init-field name
                 [x (random 650)]
                 [y (random 800)]]
-
+    (define/public (get-coordinates)
+      (cons x y))
     (define/public (get-x)
       x)
     (define/public (get-y)
@@ -23,11 +24,12 @@
                 snake
                 player-id
                 [show #f]
-                [alive #t])
+                [alive #t]
+                [changed #f])
     (field 
      [x (car (car snake))]
      [y (cdr (car snake))]
-     [velocity 2]
+     [velocity 4]
      [angle 0]
      [direction (cons velocity 0)]
      [steering-radius 0.2])
@@ -42,6 +44,11 @@
     (define/public (is-alive?) alive)
     (define/public (show?) show)
     (define/public (get-velocity) velocity)
+    (define/public (changed?) changed)
+    
+    (define/public (highspeed)
+      (set! velocity (* velocity 3))
+      (set! changed #t))
 
     (define/public (higher-speed)
       (set! velocity (+ velocity 1)))
@@ -56,7 +63,7 @@
     
     (define/public (normalize time)
       (when (equal? (remainder time 100) 0)
-        (set! velocity 2)
+        (set! velocity 4)
         (set! steering-radius 0.2)))
     
     (define (turn-left)
