@@ -7,7 +7,7 @@
 (provide dc)
 
 
-
+;Canvasen för spelfönstret
 (define game-canvas%
   (class canvas%
     (inherit get-width get-height refresh)
@@ -17,11 +17,11 @@
     (define/override (on-paint)
       (begin
         (display "repaint job\n")))
-    
+    ;Key-events som sker på canvasen
     (define/public (get-key-events) key-events)
 
 
-    
+    ;Styrningen hos ormen via en hashlista
     (define/public init
       (lambda ()
         (begin
@@ -32,7 +32,7 @@
           (hash-set! key-events "l3" #f)
           (hash-set! key-events "r3" #f)
           )))
-    
+    ;Slutskräm vid game over
     (define/public end-game
       (lambda ()
         (begin
@@ -41,7 +41,7 @@
           (printf "Game over")
           )))
     
-    
+    ;hashtabell över svänger vid knapptryck och vid knapp släppt
     (define/override (on-char ke)
       (begin
         (case (send ke get-key-code)
@@ -72,7 +72,8 @@
           [(#\b)
            (hash-set! key-events "r3" #f)]
           [else (void)])))
-    
+
+    ;Ändrar ormens position
     (define/override (on-event event)
       (case (send event get-event-type)
         [(right-down)
@@ -92,7 +93,7 @@
     (super-new)))
 
 
-
+;frame och canvas till spelfönstret
 (define game-frame (new frame% (label "Garde la courbe") (width 650) (height 800)))
 (define game-canvas (new game-canvas% (parent game-frame)))
 (send game-canvas init)
