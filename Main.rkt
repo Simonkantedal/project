@@ -166,3 +166,41 @@
 
 
 
+;Procedure to set snakes starting velocity to 2."
+(define (easy a b)
+  (begin
+    (send a set-label "Marked")
+    (send (car snake-list) low-speed)
+    (send (cadr snake-list) low-speed)
+    (send (caddr snake-list) low-speed)))
+;Procedure to set snakes starting velocity to 4."
+(define (medium a b)
+  (begin
+    (send a set-label "Marked")
+    (send (car snake-list) medium-speed)
+    (send (cadr snake-list) medium-speed)
+    (send (caddr snake-list) medium-speed)))
+;Procedure to set snakes starting velocity to 6."
+(define (hard a b)
+  (begin
+    (send a set-label "Marked")
+    (send (car snake-list) high-speed)
+    (send (cadr snake-list) high-speed)
+    (send (caddr snake-liste) high-speed)))
+    
+(define speed (new message% [label "Difficulty"] [parent subpanel]))
+
+(new button%
+     [label "Easy"]
+     [parent subpanel]
+     [callback easy])
+(new button%
+     [label "Medium"]
+     [parent subpanel]
+     [callback medium])
+(new button%
+     [label "Hard"]
+     [parent subpanel]
+     [callback hard])
+
+
